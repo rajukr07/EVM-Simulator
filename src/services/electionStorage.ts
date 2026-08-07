@@ -531,7 +531,13 @@ export async function getTurnoutStatistics(): Promise<TurnoutStatistics> {
     totalVotes,
   };
 }
-
+export async function prepareNextElectionCycle() {
+  await AsyncStorage.multiRemove([
+    VOTED_VOTERS_KEY,
+    VOTE_COUNTS_KEY,
+    AUDIT_LOG_KEY,
+  ]);
+}
 export async function resetElectionData() {
   await AsyncStorage.multiRemove([
     VOTED_VOTERS_KEY,
