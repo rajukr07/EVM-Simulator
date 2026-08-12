@@ -54,7 +54,7 @@ export default function AdminDashboardScreen() {
   useFocusEffect(
     useCallback(() => {
       if (authenticated !== "true") {
-        router.replace("./admin-login");
+        router.replace("/admin-login");
         return;
       }
 
@@ -227,6 +227,36 @@ export default function AdminDashboardScreen() {
               })}
             </View>
           )}
+
+          <View style={styles.analyticsCard}>
+            <View style={styles.analyticsTextContainer}>
+              <Text style={styles.analyticsTitle}>Election Analytics</Text>
+
+              <Text style={styles.analyticsDescription}>
+                Review turnout, voter participation, candidate performance and
+                election integrity.
+              </Text>
+            </View>
+
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="Open election analytics"
+              onPress={() =>
+                router.push({
+                  pathname: "/admin-analytics",
+                  params: {
+                    authenticated: "true",
+                  },
+                })
+              }
+              style={({ pressed }) => [
+                styles.analyticsButton,
+                pressed && styles.pressed,
+              ]}
+            >
+              <Text style={styles.analyticsButtonText}>View Analytics</Text>
+            </Pressable>
+          </View>
 
           <View style={styles.privacyNotice}>
             <Text style={styles.privacyTitle}>Anonymous result storage</Text>
@@ -478,6 +508,46 @@ const styles = StyleSheet.create({
     color: COLORS.textSecondary,
     fontSize: 11,
     textAlign: "right",
+  },
+
+  analyticsCard: {
+    marginTop: SPACING.large,
+    padding: SPACING.medium,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: RADIUS.medium,
+    backgroundColor: COLORS.surface,
+  },
+
+  analyticsTextContainer: {
+    marginBottom: SPACING.medium,
+  },
+
+  analyticsTitle: {
+    color: COLORS.textPrimary,
+    fontSize: 16,
+    fontWeight: "800",
+  },
+
+  analyticsDescription: {
+    marginTop: 6,
+    color: COLORS.textSecondary,
+    fontSize: 13,
+    lineHeight: 19,
+  },
+
+  analyticsButton: {
+    minHeight: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: RADIUS.medium,
+    backgroundColor: COLORS.primaryDark,
+  },
+
+  analyticsButtonText: {
+    color: COLORS.white,
+    fontSize: 14,
+    fontWeight: "800",
   },
 
   privacyNotice: {
